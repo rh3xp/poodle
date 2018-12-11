@@ -42,6 +42,10 @@ class Lexer(object):
             elif word in '=/*=-+':
                 tokens.append(['OPERATOR', word])
 
+            # If a statement end ie. semicolon found
+            if word[len(word) - 1] == ";":
+                tokens.append(['STATEMENT_END', ';'])
+
             # Increases word after checking it
             source_index += 1
 
