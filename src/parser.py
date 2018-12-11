@@ -1,3 +1,4 @@
+from Objects.varObject import import VariableObject
 
 
 class Parser(object):
@@ -6,6 +7,8 @@ class Parser(object):
         self.tokens = tokens
         # This will hold the token index we are parsing at
         self.token_index = 0
+        # This will contain the transpiled code
+        self.transpiled_code = ""
 
     def parse(self):
 
@@ -22,9 +25,14 @@ class Parser(object):
 
             # Increment token index so that we can loop through tokens
             self.token_index += 1
+        print(self.transpiled_code)
 
     def parse_variable_declaration(self, token_stream):
         tokens_checked = 0
+
+        name = ""
+        operator = ""
+        value = ""
 
         for token in range(0, len(token_stream)):
 
@@ -36,12 +44,12 @@ class Parser(object):
                 break
 
             # This will get variable type rg. var, let, const
-            if token == 0:
-                print('Variable type: ' + token_value)
+            #if token == 0:
+            #    print('Variable type: ' + token_value)
 
             # This will take variable name and also perform error validation
             elif token == 1 and token_type == "IDENTIFIER":
-                print('Variable name: ' + token_value)
+                name = token_value
 
             elif token == 1 and token_type != "IDENTIFIER":
                 print("ERROR: Invalid Variable Name '" + token_value + "'")
@@ -49,19 +57,22 @@ class Parser(object):
 
             # This will get variable assignment operator ie. '='
             elif token == 2 and token_type == "OPERATOR":
-                print('Assignment Operator: ' + token_value)
+                operator = token_value
             elif token == 2 and token_type != "OPERATOR":
                 print("ERROR: Assignment Operator is missing or invalid, should be '='")
                 quit()
 
             # This will get the variable value assigned
             elif token == 3 and token_type in ['STRING', 'INTEGER', 'IDENTIFIER']:
-                print('Variable value: ' + token_value)
+                value = token_value
             elif token == 3 and token_type not in ['STRING', 'INTEGER', 'IDENTIFIER']:
                 print("ERROR: Invalid Variable Assignment Value '" + token_value + "'")
                 quit()
 
             tokens_checked += 1
+
+        varObj = VariableObject()
+        self.transpiled_code += varObj.transpile(name, operator, value)
 
         # Increment token index by amount of tokens we checked to avoid repetition
         self.token_index += tokens_checked

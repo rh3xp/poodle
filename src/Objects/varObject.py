@@ -8,5 +8,5 @@ class VariableObject(object):
 
     def transpile(self, name, operator, value):
         # return the string to be executed
-        self.exec_string += name + " " + operator + " " + value
+        self.exec_string += name + " " + operator + " " + value + '\n'
         return self.exec_string
