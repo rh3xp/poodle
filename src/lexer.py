@@ -20,17 +20,27 @@ class Lexer(object):
         while source_index < len(source_code):
             word = source_code[source_index]
 
-            # This will recognize a variable and tokenize it
-            if word == "var":
-                tokens.append(["VAR_DECLARATION", word])
+            # This will recognize a var and create a VAR_DECLARED token for it
+            if word == 'var':
+                tokens.append(['VAR_DECLARATION', word])
 
-            # This will recognize a word and create an identifier token for it
+            # This will recognize a word and create an IDENTIFIER token for it
             elif re.match('[a-z]', word) or re.match('[A-Z]', word):
-                tokens.append(["IDENTIFIER", word])
+                if word[len(word) - 1] == ';':
+                    tokens.append(['IDENTIFIER', word[0:len(word) - 1]])
+                else:
+                    tokens.append(['IDENTIFIER', word])
 
-            # This will recognize numbers and create tokens for it
+            # This will recognize numbers and create an INTEGER token for it
             elif re.match('[0-9]', word):
-                tokens.append(["INTEGER", word])
+                if word[len(word) - 1] == ';':
+                    tokens.append(['INTEGER', word[0:len(word) - 1]])
+                else:
+                    tokens.append(['INTEGER', word])
+
+            # This will recognize operators and create an OPERATOR token for it
+            elif word in '=/*=-+':
+                tokens.append(['OPERATOR', word])
 
             # Increases word after checking it
             source_index += 1
