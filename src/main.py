@@ -1,4 +1,5 @@
 import lexer
+import parser
 
 
 def main():
@@ -14,7 +15,16 @@ def main():
     # We call the lexer class and initialize it with the source code
     lex = lexer.Lexer(content)
     # We now call the tokenize method
+
     tokens = lex.tokenize()
+
+    #
+    # Parser
+    #
+
+    # We call the parser
+    parse = parser.Parser(tokens)
+    parse.parse()
 
 
 main()
