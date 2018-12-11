@@ -17,10 +17,14 @@ class Lexer(object):
 
         # Loop through each word in source code to generate tokens
         while source_index < len(source_code):
-            print(source_code[source_index])
- 
+            word = source_code[source_index]
+
+            if word == "var": tokens.append(["VAR_DECLARATION", word])
+
             # Increases word after checking it
             source_index += 1
+
+        print(tokens)
 
         # Return created tokens
         return tokens
