@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from lexer import Lexer
-from pprint import pprint
+#from pprint import pprint
 
 def main():
     filename = 'hello.poo'
@@ -8,9 +8,10 @@ def main():
     lexer = Lexer(file)
 
     lexer.tokenizer()
-    #print("Tokens:")
-    pprint(lexer.tokens)
-    pprint(lexer.comm)
+    print("Tokens:")
+    print(lexer.tokens)
+    print("Comments:")
+    print(lexer.comm)
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 import lexer
-import parser
+#import parser
 
 
 def main():
@@ -23,8 +23,8 @@ def main():
     #
 
     # We call the parser
-    parse = parser.Parser(tokens)
-    parse.parse()
+    #parse = parser.Parser(tokens)
+    #parse.parse()
 
 
 main()
